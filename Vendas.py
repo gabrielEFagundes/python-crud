@@ -42,10 +42,12 @@ conexao.commit()
 '''
 
 # -- DELETE --
+'''
 nome_produto = 'Bolacha'
 comando = f'DELETE FROM vendas WHERE nome_produto = "{nome_produto}"'
 cursor.execute(comando)
 conexao.commit()
+'''
 
 cursor.close()
 conexao.close()
