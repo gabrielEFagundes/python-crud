@@ -30,3 +30,5 @@ TRUNCATE medico;
 TRUNCATE consultas;
 
 DROP DATABASE ConsultaMedica;
+
+set password for root@localhost='';
