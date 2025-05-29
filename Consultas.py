@@ -1,4 +1,5 @@
 import mysql.connector
+from tabulate import tabulate
 import time
 
 conexao =   mysql.connector.connect(
@@ -25,7 +26,7 @@ while escolha != 5:
           '\n5- Sair'
           '\nSua escolha: ')
 
-# cadastrar finalizado
+# CADASTRAR
 
     if escolha == 1:
         cadastro = input('\n\n1- Cadastrar-se'
@@ -85,7 +86,7 @@ while escolha != 5:
             else:
                 print('\nSenha incorreta!\nTente novamente mais tarde.')
 
-# atualizar finalizado
+# ATUALIZAR
 
     elif escolha == 2:
         update = int(input('\n\n1- Atualizar-se'
@@ -137,6 +138,100 @@ while escolha != 5:
 
             else:
                 print('\nSenha incorreta!\nTente novamente mais tarde.')
+
+# LER
+
+    elif escolha == 3:
+        view = int(input('\n\n1- Ver pacientes'
+                         '\n2- Ver médicos'
+                         '\n3- Ver consultas'
+                         '\nSua escolha: '))
+
+        if view == 1:
+            comando = f'SELECT * FROM paciente'
+            cursor.execute(comando)
+            resultado = cursor.fetchall()
+            print('\n---------------')
+            print(tabulate(resultado))
+
+        elif view == 2:
+            comando = f'SELECT * FROM medico'
+            cursor.execute(comando)
+            resultado = cursor.fetchall()
+            print('\n---------------')
+            print(tabulate(resultado))
+
+        elif view == 3:
+            comando = f'SELECT * FROM consultas'
+            cursor.execute(comando)
+            resultado = cursor.fetchall()
+            print('\n---------------')
+            print(tabulate(resultado))
+
+        else:
+            print('\nDigite um valor correto, por favor.')
+
+# DELETAR
+
+    elif escolha == 4:
+        delete = int(input('\n\n1- Deletar paciente'
+                           '\n2- Deletar médico'
+                           '\n3- Deletar consulta'
+                           '\nSua escolha: '))
+
+        if delete == 1:
+            senha = input('\nDigite a senha de identificação: ')
+
+            if senha == 'admin123':
+                id = int(input('\nDigite o ID do paciente:'))
+
+                comando = f'DELETE * FROM paciente WHERE id_paciente = {id}'
+                cursor.execute(comando)
+                conexao.commit()
+                print('\nPaciente deletado com sucesso!')
+
+            else:
+                print('\nSenha incorreta!\nTente novamente mais tarde.')
+
+        elif delete == 2:
+            senha = input('\nDigite a senha de identificação: ')
+
+            if senha == 'admin123':
+                id = int(input('\nDigite o ID do médico: '))
+
+                comando = f'DELETE * FROM medico WHERE id_medico = {id}'
+                cursor.execute(comando)
+                conexao.commit()
+                print('\nMédico deletado com sucesso!')
+
+            else:
+                print('\nSenha incorreta!\nTente novamente mais tarde.')
+
+        elif delete == 3:
+            senha = input('\nDigite a senha de identificação: ')
+
+            if senha == 'admin123':
+                id = int(input('\nDigite o ID da consulta: '))
+
+                comando = f'DELETE * FROM consultas WHERE id = {id}'
+                cursor.execute(comando)
+                conexao.commit()
+                print('\nConsulta excluída com sucesso!')
+
+            else:
+                print('\nSenha incorreta!\nTente novamente mais tarde.')
+
+        else:
+            print('\nPor favor, digite um número coerente.')
+
+# SAIR
+
+    elif escolha == 5:
+        print('\n\nSaindo do sistema...')
+        print('Obrigado por utilizar! <3')
+
+    else:
+        print('\n\nEscolha um número correto!!')
 
 
 cursor.close()
